@@ -4,7 +4,22 @@ const getNotes = require('./notes')
 yargs.command({
   command: 'add',
   describe: 'Add new note',
-  handler: () => console.log('ADD')
+  builder: {
+    title: {
+      describe: 'Note title',
+      demandOption: true,
+      type: 'string'
+    },
+    body: {
+      describe: 'Note description',
+      demandOption: true,
+      type: 'string'
+    }
+  },
+  handler: (argv) => {
+    console.log(`title: ${argv.title}`)
+    console.log(`body: ${argv.body}`)
+  }
 })
 
 yargs.command({
@@ -25,4 +40,4 @@ yargs.command({
   handler: () => console.log('READ')
 })
 
-console.log(yargs.argv)
+yargs.parse()

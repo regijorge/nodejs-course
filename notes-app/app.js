@@ -1,8 +1,28 @@
-const chalk = require('chalk')
+const yargs = require('yargs')
 const getNotes = require('./notes')
 
-const notes = getNotes()
+yargs.command({
+  command: 'add',
+  describe: 'Add new note',
+  handler: () => console.log('ADD')
+})
 
-console.log(notes)
+yargs.command({
+  command: 'remove',
+  describe: 'Remove note',
+  handler: () => console.log('REMOVE')
+})
 
-console.log(chalk.inverse.bold.green('success'))
+yargs.command({
+  command: 'list',
+  describe: 'List all notes',
+  handler: () => console.log('LIST')
+})
+
+yargs.command({
+  command: 'read',
+  describe: 'Read a note',
+  handler: () => console.log('READ')
+})
+
+console.log(yargs.argv)

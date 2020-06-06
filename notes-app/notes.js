@@ -1,7 +1,16 @@
 const fs = require('fs')
 
-const getNotes = () => {
-  return 'Your notes...'
+const readNote = (title) => {
+  const notes = loadNotes()
+  const note = notes.find(note => note.title === title)
+
+  if (!note) {
+    console.log('Note not found')
+    return
+  }
+
+  console.log(`title: ${note.title}`)
+  console.log(`body: ${note.body}`)
 }
 
 const addNote = (title, body) => {
@@ -62,8 +71,8 @@ const loadNotes = () => {
 }
 
 module.exports = {
-  getNotes,
   addNote,
   removeNote,
-  listNotes
+  listNotes,
+  readNote
 }

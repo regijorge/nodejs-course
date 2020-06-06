@@ -1,0 +1,2 @@
+This file was created with nodejs!
+And this text was appended using appendFileSync!

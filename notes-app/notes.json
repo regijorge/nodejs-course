@@ -2,5 +2,9 @@
   {
     "title": "Some nice title",
     "body": "Some cool body"
+  },
+  {
+    "title": "A new title",
+    "body": "Some cool body"
   }
 ]

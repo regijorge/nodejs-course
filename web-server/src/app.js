@@ -42,6 +42,14 @@ app.get('/weather', (req, res) => {
   })
 })
 
+app.get('*', (req, res) => {
+  res.render('404', {
+    title: '404',
+    name: 'Jorge Souza',
+    errorMessage: 'Page not found'
+  })
+})
+
 app.listen(3000, () => {
   console.log('Server is up and running on http://localhost:3000')
 })

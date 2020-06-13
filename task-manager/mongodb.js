@@ -1,9 +1,11 @@
-const mongodb = require('mongodb')
+const { MongodbClient, ObjectID } = require('mongodb')
 require('dotenv').config()
 
-const MongodbClient = mongodb.MongoClient
-
 const connectionURL = process.env.MONGODB_URI
+
+const id = new ObjectID()
+console.log(id)
+console.log(id.getTimestamp())
 
 MongodbClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) => {
   if (error) {
@@ -13,51 +15,51 @@ MongodbClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) 
 
   console.log('Connected to database!')
 
-  const db = client.db()
+  // const db = client.db()
 
-  db.collection('users').insertOne({
-    name: 'Jorge Souza',
-    age: 27
-  }, (error, result) => {
-    if (error) {
-      return console.log(`Unable to insert User: ${error}`)
-    }
+  // db.collection('users').insertOne({
+  //   name: 'Jorge Souza',
+  //   age: 27
+  // }, (error, result) => {
+  //   if (error) {
+  //     return console.log(`Unable to insert User: ${error}`)
+  //   }
 
-    console.log(result.ops)
-  })
+  //   console.log(result.ops)
+  // })
 
-  db.collection('users').insertMany([
-    {
-      name: 'Carlucho',
-      age: 35
-    }, {
-      name: 'Luíz Pinguço',
-      age: 72
-    }
-  ], (error, result) => {
-    if (error) {
-      return console.log('Unabel to insert documents!')
-    }
+  // db.collection('users').insertMany([
+  //   {
+  //     name: 'Carlucho',
+  //     age: 35
+  //   }, {
+  //     name: 'Luíz Pinguço',
+  //     age: 72
+  //   }
+  // ], (error, result) => {
+  //   if (error) {
+  //     return console.log('Unabel to insert documents!')
+  //   }
 
-    console.log(result.ops)
-  })
+  //   console.log(result.ops)
+  // })
 
-  db.collection('tasks').insertMany([
-    {
-      description: 'Clean the house',
-      completed: false
-    }, {
-      description: 'Study nodejs course',
-      completed: false
-    }, {
-      description: 'Buy food',
-      completed: true
-    }
-  ], (error, result) => {
-    if (error) {
-      return console.log('Unable to insert tasks')
-    }
+  // db.collection('tasks').insertMany([
+  //   {
+  //     description: 'Clean the house',
+  //     completed: false
+  //   }, {
+  //     description: 'Study nodejs course',
+  //     completed: false
+  //   }, {
+  //     description: 'Buy food',
+  //     completed: true
+  //   }
+  // ], (error, result) => {
+  //   if (error) {
+  //     return console.log('Unable to insert tasks')
+  //   }
 
-    console.log(result.ops)
-  })
+  //   console.log(result.ops)
+  // })
 })

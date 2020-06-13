@@ -12,6 +12,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "mongodb": "^3.5.8",
-    "mongoose": "^5.9.18"
+    "mongoose": "^5.9.18",
+    "validator": "^13.1.1"
   }
 }

@@ -13,29 +13,18 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
 
   const db = client.db()
 
-  db.collection('users').updateOne({
-    _id: new ObjectID("5ee030693cecc7097fabc4a0")
-  }, {
-    $set: {
-      name: 'Regi Oliveira'
-    },
-    $inc: {
-      age: 1
-    }
+  db.collection('users').deleteMany({
+    age: 27
   }).then(result => {
-    console.log(result)
+    console.log(`${result.result.n} found and ${result.deletedCount} removed.`)
   }).catch(error => {
     console.log(error)
   })
 
-  db.collection('tasks').updateMany({
-    completed: false
-  }, {
-    $set: {
-      completed: true
-    }
+  db.collection('tasks').deleteOne({
+    _id: ObjectID("5ee4d330d7bd1627ebe10c63")
   }).then(result => {
-    console.log(result)
+    console.log(`${result.result.n} found and ${result.deletedCount} removed.`)
   }).catch(error => {
     console.log(error)
   })

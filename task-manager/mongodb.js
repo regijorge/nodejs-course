@@ -1,5 +1,4 @@
 const { MongoClient, ObjectID } = require('mongodb')
-require('dotenv').config()
 
 const connectionURL = process.env.MONGODB_URI
 

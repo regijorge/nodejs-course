@@ -65,6 +65,40 @@ test('Should get user profile', async () => {
     .expect(200)
 })
 
+test('Should upload user avatar', async () => {
+  await request(app)
+    .post('/users/me/avatar')
+    .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+    .attach('avatar', 'tests/fixtures/picture.jpg')
+    .expect(200)
+
+  const user = await User.findById(userOneId)
+  expect(user.avatar).toEqual(expect.any(Buffer))
+})
+
+test('Should update valid user fields', async () => {
+  await request(app)
+    .get('/users/me')
+    .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+    .send({
+      name: 'Regi Jorge'
+    })
+    .expect(200)
+
+    const user = await User.findById(userOneId)
+    expect(user.name).toEqual('Regi Jorge')
+})
+
+test('Should not update invalid user fields', async () => {
+  await request(app)
+    .get('/users/me')
+    .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+    .send({
+      country: 'Brazil'
+    })
+    .expect(400)
+})
+
 test('Should not get non logged in user profile', async () => {
   await request(app)
     .get('/users/me')

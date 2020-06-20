@@ -16,8 +16,16 @@ app.get('/', (req, res) => {
   res.send('Hello World')
 })
 
-io.on('connection', () => {
+let count = 0
+io.on('connection', socket => {
   console.log('Socket io is connected')
+
+  socket.emit('countUpdated', count)
+
+  socket.on('increment', () => {
+    count++
+    io.emit('countUpdated', count)
+  })
 })
 
 server.listen(port, () => {

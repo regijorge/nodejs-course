@@ -20,9 +20,14 @@ io.on('connection', socket => {
   console.log('Socket io is connected')
 
   socket.emit('message', 'Welcome to the jango!')
+  socket.broadcast.emit('message', 'A new user has joined!')
 
   socket.on('sendMessage', message => {
     io.emit('message', message)
+  })
+
+  socket.on('disconnect', () => {
+    io.emit('message', 'A user has left')
   })
 })
 

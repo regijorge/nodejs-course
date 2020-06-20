@@ -3,6 +3,7 @@ const socket = io()
 socket.on('message', message => {
   console.log(message)
   const html = Mustache.render(messageTemplate, {
+    username: message.username,
     message: message.text,
     createdAt: moment(message.createdAt).format('h:mm a')
   })
@@ -12,8 +13,9 @@ socket.on('message', message => {
 socket.on('locationMessage', (message) => {
   console.log(message)
   const html = Mustache.render(locationMessageTemplate, {
-      url: message.url,
-      createdAt: moment(message.createdAt).format('h:mm a')
+    username: message.username,
+    url: message.url,
+    createdAt: moment(message.createdAt).format('h:mm a')
   })
   $messages.insertAdjacentHTML('beforeend', html)
 })
@@ -27,7 +29,12 @@ const $messages = document.querySelector('#messages')
 const messageTemplate = document.querySelector('#message-template').innerHTML
 const locationMessageTemplate = document.querySelector('#location-message-template').innerHTML
 
-const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true })
+const {
+  username,
+  room
+} = Qs.parse(location.search, {
+  ignoreQueryPrefix: true
+})
 
 $messageForm.addEventListener('submit', e => {
   e.preventDefault()
@@ -64,7 +71,10 @@ $sendLocationButton.addEventListener('click', () => {
   })
 })
 
-socket.emit('join', { username, room }, (error) => {
+socket.emit('join', {
+  username,
+  room
+}, (error) => {
   if (error) {
     alert(error)
     location.href = '/'
